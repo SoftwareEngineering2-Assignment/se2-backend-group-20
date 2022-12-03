@@ -1,0 +1,62 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "plugins": ["ava"],
+  "extends": "airbnb-base",
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {
+    "no-throw-literal": "off",
+    "block-spacing": "warn",
+    "eol-last": "warn",
+    "quotes": "warn",
+    "space-infix-ops": "warn",
+    "arrow-spacing": "warn",
+    "padded-blocks": "warn",
+    "comma-spacing": "warn",
+    "comma-dangle": "off",
+    "no-empty": "off",
+    "no-trailing-spaces": "off",
+    "no-underscore-dangle": "off",
+    "no-multiple-empty-lines": "warn",
+    "no-param-reassign": 0,
+    "key-spacing": "warn",
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "all",
+        "argsIgnorePattern": "(^_$)|(^__)|(req)|(res)|(next)",
+        "varsIgnorePattern": "(^_$)|(^__)"
+      }
+    ],
+    "no-nested-ternary": "off",
+    "semi": "warn",
+    "global-require": "off",
+    "implicit-arrow-linebreak": ["off", "below"],
+    "object-curly-spacing": ["warn", "never"],
+    "object-curly-newline": [
+      "warn",
+      {
+        "ObjectExpression": {
+          "multiline": true,
+          "minProperties": 5
+        },
+        "ObjectPattern": {
+          "multiline": true
+        },
+        "ExportDeclaration": {
+          "multiline": true,
+          "minProperties": 3
+        }
+      }
+    ]
+  }
+}
