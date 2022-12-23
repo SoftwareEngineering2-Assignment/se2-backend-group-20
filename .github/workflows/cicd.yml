@@ -24,7 +24,7 @@ jobs:
           script: |
             cd ~/se2/20/se2-backend-group-20
             git reset --hard origin/christos-branch
-            git pull https://${{ secrets.CLONE_TOKEN }}@github.com/SoftwareEngineering2-Assignment/se2-backend-group-20 christos-branch
+            git pull https://${{ secrets.C_CLONE_TOKEN }}@github.com/SoftwareEngineering2-Assignment/se2-backend-group-20 christos-branch
             bash -ci 'npm install'
             bash -ci 'pm2 restart se2-backend-group-20'
             
