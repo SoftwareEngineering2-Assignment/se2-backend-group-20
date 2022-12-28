@@ -26,7 +26,7 @@ jobs:
             git reset --hard origin/main
             git pull https://${{ secrets.C_CLONE_TOKEN }}@github.com/SoftwareEngineering2-Assignment/se2-backend-group-20 christos-branch
             bash -ci 'npm install'
-            bash -ci 'pm2 restart example-backend-0'
+            bash -ci 'pm2 restart se2-backend-group-20'
       
       
       
