@@ -23,7 +23,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/se2/20/se2-backend
-            git reset --hard origin/christos-branch
+            git reset --hard origin/main
             git pull https://${{ secrets.C_CLONE_TOKEN }}@github.com/SoftwareEngineering2-Assignment/se2-backend-group-20 christos-branch
             bash -ci 'npm install'
             bash -ci 'pm2 restart example-backend-0'
