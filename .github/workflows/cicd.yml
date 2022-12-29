@@ -1,14 +1,18 @@
 name: ci
+
+
 on: push
+
+
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
       - name: Install dependencies
         run: npm install
-      - name: Run tests
+      - name: Run test
         run: npm test
   
 
