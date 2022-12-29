@@ -15,7 +15,7 @@ jobs:
   cd:
     runs-on: ubuntu-latest
     needs: ci
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/xhulio11-branch'
     steps: 
      - uses: appleboy/ssh-action@master
        with:
@@ -26,6 +26,6 @@ jobs:
         script: |
           cd ~/se2/32/se2-backend-group-20
           git reset --hard origin/main 
-          git pull https://{{ secrets.CLONE_TOKEN }}@github.com/xhulio11/se2-example-group-20 main 
+          git pull https://{{ secrets.CLONE_TOKEN }}@github.com/SoftwareEngineering2-Assignment/se2-backend-group-20 xhulio11-branch 
           bash -ci 'npm install' 
           bash -ci 'pm2 restart backend-group-20'
