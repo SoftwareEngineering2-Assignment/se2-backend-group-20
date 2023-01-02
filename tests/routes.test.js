@@ -6,6 +6,7 @@ const listen = require('test-listen');
 const got = require('got');
 const http = require('node:http');
 const app = require('../src/index');
+const {jwtSign} = require('../src/utilities/authentication/helpers');
 
 // before running the tests setup the test environment
 test.before(async (t) => {
@@ -24,5 +25,12 @@ test('GET | /statistics | returns correct status code', async (t) => {
   const {statusCode, body} = await t.context.got('general/statistics');
   t.is(statusCode, 200);
   t.assert(body.success);
-  t.is(body.source, 1);
+  t.is(body.sources, 0);
 });
+
+test('GET | /sources', async (t) => {
+  const token = jwtSign({ a: 1 });
+  const { statusCode, body } = await t.context.got('sources/sources?token=${token}');
+  t.is(statusCode, 200);
+});
+
