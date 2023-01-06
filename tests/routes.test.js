@@ -51,8 +51,9 @@ test('GET | /test-url-request', async (t) => {
 
 
 
-
-
+/*
+  Tests for dashboards routes
+*/
 
 // test('POST | /create-dashboard', async (t) => {
 //   const token = jwtSign({ username: "karanikio", id: "603240b6bc3cb735d09ee880", email: 'karanikio@auth.gr' });
