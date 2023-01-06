@@ -21,6 +21,9 @@ test.after((t) => {
   t.context.server.close();
 });
 
+/*
+  Tests for general routes
+*/
 
 test('GET | /statistics | returns correct status code', async (t) => {
   const {statusCode, body} = await t.context.got('general/statistics');
@@ -35,14 +38,38 @@ test('GET | /sources', async (t) => {
   t.is(statusCode, 200);
 });
 
-test('POST | /create-dashboard', async (t) => {
-  const token = jwtSign({ username: "karanikio", id: "603240b6bc3cb735d09ee880", email: 'karanikio@auth.gr' });
-  const { statusCode, body } = await t.context.got(`sources/create-dashboard?token=${token}`, { name: "mydash" });
-  console.log(body.success);
+test('GET | /test-url', async (t) => {
+  const { statusCode } = await t.context.got('general/test-url');
+  t.is(statusCode, 200);
 });
 
+test('GET | /test-url-request', async (t) => {
+  const { statusCode, body } = await t.context.got('general/test-url-request');
+  t.is(statusCode, 200);
+  console.log(body);
+});
+
+
+
+
+
+
+// test('POST | /create-dashboard', async (t) => {
+//   const token = jwtSign({ username: "karanikio", id: "603240b6bc3cb735d09ee880", email: 'karanikio@auth.gr' });
+//   const { statusCode, body } = await t.context.got(`dashboards/create-dashboard?token=${token}`, { name: "mydash" });
+//   console.log(body.success);
+//   t.assert(body.success);
+// });
+
 // test('GET | /dashboards', async (t) => {
-//   const token = jwtSign({ a: 1 });
-//   const { statusCode, body } = await t.context.got(`sources/dashboards?token=${token}`);
+//   const token = jwtSign({ username: "karanikio", id: "603240b6bc3cb735d09ee880", email: 'karanikio@auth.gr' });
+//   const { statusCode, body } = await t.context.got(`dashboards/dashboards?token=${token}`);
+//   t.assert(body.success);
+// });
+
+// test('POST | /delete-dashboard', async (t) => {
+//   const token = jwtSign({ username: "karanikio", id: "603240b6bc3cb735d09ee880", email: 'karanikio@auth.gr' });
+//   const { statusCode, body } = await t.context.got(`dashboards/delete-dashboard?token=${token}`, { name: "mydash" });
+//   console.log(body.success);
 //   t.assert(body.success);
 // });
