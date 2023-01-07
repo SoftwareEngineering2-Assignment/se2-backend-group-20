@@ -8,6 +8,7 @@ const User = require('../models/user');
 const Dashboard = require('../models/dashboard');
 const Source = require('../models/source');
 
+// get statistics for the front page
 router.get('/statistics',
   async (req, res, next) => {
     try {
@@ -40,6 +41,7 @@ router.get('/statistics',
     }
   });
 
+// just for testing
 router.get('/test-url',
   async (req, res) => {
     try {
@@ -57,6 +59,7 @@ router.get('/test-url',
     }
   });
 
+// just for testing
 router.get('/test-url-request',
   async (req, res) => {
     try {

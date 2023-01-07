@@ -8,6 +8,7 @@ const router = express.Router();
 const Dashboard = require('../models/dashboard');
 const Source = require('../models/source');
 
+// simply get the available dashboards
 router.get('/dashboards',
   authorization,
   async (req, res, next) => {
@@ -32,6 +33,7 @@ router.get('/dashboards',
     }
   });
 
+// route for creating a dashboard
 router.post('/create-dashboard', 
   authorization,
   async (req, res, next) => {
@@ -59,6 +61,7 @@ router.post('/create-dashboard',
     }
   }); 
 
+// route for deleting a dashboard
 router.post('/delete-dashboard', 
   authorization,
   async (req, res, next) => {
@@ -78,6 +81,7 @@ router.post('/delete-dashboard',
     }
   }); 
 
+// route for getting a specific dashboard
 router.get('/dashboard',
   authorization,
   async (req, res, next) => {
@@ -115,6 +119,7 @@ router.get('/dashboard',
     }
   });
 
+// route for saving a created dashboard
 router.post('/save-dashboard', 
   authorization,
   async (req, res, next) => {
@@ -139,8 +144,9 @@ router.post('/save-dashboard',
     } catch (err) {
       return next(err.body);
     }
-  }); 
+  });
 
+// route for cloning/copying a dashboard
 router.post('/clone-dashboard', 
   authorization,
   async (req, res, next) => {
@@ -212,6 +218,7 @@ const x = async function (userId, foundDashboard, next) {
   });
 }
 
+// route for checking if user needs to put a password
 router.post('/check-password-needed', 
   async (req, res, next) => {
     try {
@@ -238,6 +245,7 @@ router.post('/check-password-needed',
     }
   }); 
 
+// route for password checking
 router.post('/check-password', 
   async (req, res, next) => {
     try {
@@ -276,6 +284,7 @@ router.post('/check-password',
     }
   }); 
 
+// route for sharing a dashboard
 router.post('/share-dashboard', 
   authorization,
   async (req, res, next) => {
@@ -303,6 +312,7 @@ router.post('/share-dashboard',
     }
   }); 
 
+// route for changing my password
 router.post('/change-password', 
   authorization,
   async (req, res, next) => {

@@ -1,5 +1,9 @@
+/*
+  Connect to mongoose | mongoose configuration
+*/
 const mongoose = require('mongoose');
 
+// set mongoose parameters
 const mongooseOptions = {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -10,7 +14,8 @@ const mongooseOptions = {
   keepAliveInitialDelay: 300000
 };
 const mongodbUri = process.env.MONGODB_URI;
-  
+
+// connect to mongoose
 module.exports = () => {
   // eslint-disable-next-line no-console
   mongoose.connect(mongodbUri, mongooseOptions).catch(console.error);

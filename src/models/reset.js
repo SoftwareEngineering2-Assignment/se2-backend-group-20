@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 const {constants: {expires}} = require('../utilities/validation');
 
+// reset the mongoose schema to our needs
 const ResetSchema = new mongoose.Schema({
   username: {
     index: true,
