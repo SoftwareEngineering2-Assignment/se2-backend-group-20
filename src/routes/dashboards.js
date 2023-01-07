@@ -171,6 +171,47 @@ router.post('/clone-dashboard',
     }
   }); 
 
+// check password needed function
+const x = async function (userId, foundDashboard, next) {
+  if (userId && foundDashboard.owner.equals(userId)) {
+    foundDashboard.views += 1;
+    await foundDashboard.save();
+
+    return res.json({
+      success: true,
+      owner: 'self',
+      shared: foundDashboard.shared,
+      hasPassword: foundDashboard.password !== null,
+      dashboard
+    });
+  } 
+  if (!(foundDashboard.shared)) {
+    return res.json({
+      success: true,
+      owner: '',
+      shared: false
+    });
+  }
+  if (foundDashboard.password === null) {
+    foundDashboard.views += 1;
+    await foundDashboard.save();
+
+    return res.json({
+      success: true,
+      owner: foundDashboard.owner,
+      shared: true,
+      passwordNeeded: false,
+      dashboard
+    });
+  }
+  return res.json({
+    success: true,
+    owner: '',
+    shared: true,
+    passwordNeeded: true
+  });
+}
+
 router.post('/check-password-needed', 
   async (req, res, next) => {
     try {
@@ -190,43 +231,8 @@ router.post('/check-password-needed',
       dashboard.layout = foundDashboard.layout;
       dashboard.items = foundDashboard.items;
 
-      if (userId && foundDashboard.owner.equals(userId)) {
-        foundDashboard.views += 1;
-        await foundDashboard.save();
+      const retobj = x(userId, foundDashboard, next);
 
-        return res.json({
-          success: true,
-          owner: 'self',
-          shared: foundDashboard.shared,
-          hasPassword: foundDashboard.password !== null,
-          dashboard
-        });
-      } 
-      if (!(foundDashboard.shared)) {
-        return res.json({
-          success: true,
-          owner: '',
-          shared: false
-        });
-      }
-      if (foundDashboard.password === null) {
-        foundDashboard.views += 1;
-        await foundDashboard.save();
-
-        return res.json({
-          success: true,
-          owner: foundDashboard.owner,
-          shared: true,
-          passwordNeeded: false,
-          dashboard
-        });
-      }
-      return res.json({
-        success: true,
-        owner: '',
-        shared: true,
-        passwordNeeded: true
-      });
     } catch (err) {
       return next(err.body);
     }
