@@ -185,14 +185,14 @@ const x = async function (userId, foundDashboard, next) {
       dashboard
     });
   } 
-  if (!(foundDashboard.shared)) {
+  else if (!(foundDashboard.shared)) {
     return res.json({
       success: true,
       owner: '',
       shared: false
     });
   }
-  if (foundDashboard.password === null) {
+  else if (foundDashboard.password === null) {
     foundDashboard.views += 1;
     await foundDashboard.save();
 
