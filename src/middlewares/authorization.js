@@ -1,3 +1,6 @@
+/**
+ * Fast authorization middleware
+ */
 const jwt = require('jsonwebtoken');
 const {path, ifElse, isNil, startsWith, slice, identity, pipe} = require('ramda');
 
@@ -21,12 +24,14 @@ module.exports = (req, res, next) => {
     ifElse(
       isNil,
       () =>
+        // check if token exists
         next({
           message: 'Authorization Error: token missing.',
           status: 403
         }),
       (token) =>
         jwt.verify(token, secret, (e, d) =>
+          // token expiration check
           ifElse(
             (err) => !isNil(err),
             (er) => {
@@ -36,6 +41,7 @@ module.exports = (req, res, next) => {
                   status: 401,
                 });
               }
+              // Authorization check
               next({
                 message: 'Authorization Error: Failed to verify token.',
                 status: 403
