@@ -1,3 +1,6 @@
+/**
+ * validation configuration
+ */
 const min = 5;
 const expires = '12h';
 
