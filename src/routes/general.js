@@ -1,3 +1,6 @@
+/**
+ * Actions taken when each general route is called via a url
+ */
 /* eslint-disable max-len */
 const express = require('express');
 const got = require('got');
@@ -8,7 +11,7 @@ const User = require('../models/user');
 const Dashboard = require('../models/dashboard');
 const Source = require('../models/source');
 
-// get statistics for the front page
+// get statistics for the front page (GET)
 router.get('/statistics',
   async (req, res, next) => {
     try {
@@ -41,7 +44,7 @@ router.get('/statistics',
     }
   });
 
-// just for testing
+// just for testing (GET)
 router.get('/test-url',
   async (req, res) => {
     try {
@@ -59,7 +62,7 @@ router.get('/test-url',
     }
   });
 
-// just for testing
+// just for testing (GET)
 router.get('/test-url-request',
   async (req, res) => {
     try {

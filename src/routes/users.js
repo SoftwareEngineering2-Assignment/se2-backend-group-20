@@ -1,14 +1,19 @@
+/**
+ * configuration file for all the user routes of the app
+ */
 const express = require('express');
 const {validation, authorization} = require('../middlewares');
 const {helpers: {jwtSign}} = require('../utilities/authentication');
 
 const {mailer: {mail, send}} = require('../utilities');
 
+// initialize router
 const router = express.Router();
 
 const User = require('../models/user');
 const Reset = require('../models/reset');
 
+// create a user (POST)
 router.post('/create',
   (req, res, next) => validation(req, res, next, 'register'),
   async (req, res, next) => {
@@ -32,6 +37,7 @@ router.post('/create',
     }
   });
 
+// user authentication (POST)
 router.post('/authenticate',
   (req, res, next) => validation(req, res, next, 'authenticate'),
   async (req, res, next) => {
@@ -63,6 +69,7 @@ router.post('/authenticate',
     }
   });
 
+// reset a password (POST)
 router.post('/resetpassword',
   (req, res, next) => validation(req, res, next, 'request'),
   async (req, res, next) => {
@@ -93,6 +100,7 @@ router.post('/resetpassword',
     }
   });
 
+// change user's password (POST)
 router.post('/changepassword',
   (req, res, next) => validation(req, res, next, 'change'),
   authorization,

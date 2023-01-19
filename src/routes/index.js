@@ -1,5 +1,5 @@
 /**
- * configuration file
+ * configuration file for all the routes of the app
  */
 const express = require('express');
 const users = require('./users');

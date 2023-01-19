@@ -8,6 +8,7 @@ mongoose.pluralize(null);
 // build the dashboard model based on mongoose schema
 const DashboardSchema = new mongoose.Schema(
   {
+    // initialization form
     name: {
       index: true,
       type: String,

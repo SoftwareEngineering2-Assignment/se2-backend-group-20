@@ -1,5 +1,5 @@
 /**
- * Pure cinfiguration file
+ * Pure configuration file
  */
 const authorization = require('./authorization');
 const error = require('./error');

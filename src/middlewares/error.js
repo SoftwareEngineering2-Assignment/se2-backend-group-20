@@ -1,4 +1,7 @@
 /* eslint-disable no-console */
+/**
+ * Error handling
+ */
 const {pipe, has, ifElse, assoc, identity, allPass, propEq} = require('ramda');
 
 const withFormatMessageForProduction = ifElse(

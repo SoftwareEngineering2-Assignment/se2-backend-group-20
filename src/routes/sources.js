@@ -1,12 +1,17 @@
+/**
+ * configuration file for all the sources routes of the app
+ */
 /* eslint-disable max-len */
 const express = require('express');
 const mongoose = require('mongoose');
 const {authorization} = require('../middlewares');
 
+// initialize router
 const router = express.Router();
 
 const Source = require('../models/source');
 
+// get sources - info (GET)
 router.get('/sources',
   authorization,
   async (req, res, next) => {
@@ -36,6 +41,7 @@ router.get('/sources',
     }
   });
 
+// create a new source (POST)
 router.post('/create-source', 
   authorization,
   async (req, res, next) => {
@@ -65,6 +71,7 @@ router.post('/create-source',
     }
   }); 
 
+// make changes to source (POST)
 router.post('/change-source', 
   authorization,
   async (req, res, next) => {
@@ -100,6 +107,7 @@ router.post('/change-source',
     }
   }); 
 
+// delete a source (POST)
 router.post('/delete-source', 
   authorization,
   async (req, res, next) => {
@@ -119,6 +127,7 @@ router.post('/delete-source',
     }
   }); 
 
+// select a source (POST)
 router.post('/source',
   async (req, res, next) => {
     try {
@@ -148,6 +157,7 @@ router.post('/source',
     }
   });
 
+// check the existing sources (POST)
 router.post('/check-sources',
   authorization,
   async (req, res, next) => {

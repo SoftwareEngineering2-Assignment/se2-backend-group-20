@@ -1,3 +1,6 @@
+/**
+ * Helper functions for the app
+ */
 const {genSaltSync, hashSync, compareSync} = require('bcryptjs');
 const {sign} = require('jsonwebtoken');
 const {pipe} = require('ramda');
