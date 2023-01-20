@@ -15,6 +15,7 @@ const Source = require('../models/source');
 router.get('/statistics',
   async (req, res, next) => {
     try {
+      // gather statistics
       const users = await User.countDocuments();
       const dashboards = await Dashboard.countDocuments();
       const views = await Dashboard.aggregate([
@@ -32,6 +33,7 @@ router.get('/statistics',
         totalViews = views[0].views;
       }
 
+      // send statistics
       return res.json({
         success: true,
         users,
@@ -44,7 +46,7 @@ router.get('/statistics',
     }
   });
 
-// just for testing (GET)
+// just a url for testing (GET)
 router.get('/test-url',
   async (req, res) => {
     try {
@@ -66,23 +68,27 @@ router.get('/test-url',
 router.get('/test-url-request',
   async (req, res) => {
     try {
+      // testing params
       const {url, type, headers, body: requestBody, params} = req.query;
 
       let statusCode;
       let body;
       switch (type) {
+        // if it is a get request
         case 'GET':
           ({statusCode, body} = await got(url, {
             headers: headers ? JSON.parse(headers) : {},
             searchParams: params ? JSON.parse(params) : {}
           }));
           break;
+        // if it is a post request
         case 'POST':
           ({statusCode, body} = await got.post(url, {
             headers: headers ? JSON.parse(headers) : {},
             json: requestBody ? JSON.parse(requestBody) : {}
           }));
           break;
+        // if it is a put request
         case 'PUT':
           ({statusCode, body} = await got.put(url, {
             headers: headers ? JSON.parse(headers) : {},
@@ -94,6 +100,7 @@ router.get('/test-url-request',
           body = 'Something went wrong';
       }
       
+      // return the functioning/error code
       return res.json({
         status: statusCode,
         response: body,
