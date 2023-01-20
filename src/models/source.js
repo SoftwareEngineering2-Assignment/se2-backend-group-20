@@ -4,6 +4,7 @@ const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
 mongoose.pluralize(null);
 
+// Creates a new mongoose schema.
 const SourceSchema = new mongoose.Schema(
   {
     name: {
