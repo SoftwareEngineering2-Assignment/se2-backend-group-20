@@ -1,3 +1,6 @@
+/**
+ * configuring backend start process and the listening port
+ */
 module.exports = {
   apps: [
     {

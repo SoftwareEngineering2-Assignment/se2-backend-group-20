@@ -1,6 +1,8 @@
 /**
  * The place where everything starts working
  */
+
+// import and gather everything here
 const path = require('path');
 require('dotenv').config({path: path.join(__dirname, '../', '.env')});
 const express = require('express');
