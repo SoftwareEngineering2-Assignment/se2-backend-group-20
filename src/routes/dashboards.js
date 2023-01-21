@@ -163,7 +163,12 @@ router.post('/save-dashboard',
       }, {new: true});
 
       // there is no such dashboard
-      dashNotFound(foundDashboard);
+      if (result === null) {
+        return res.json({
+          status: 409,
+          message: 'The selected dashboard has not been found.'
+        });
+      }
 
       // the saving was successful
       return res.json({success: true});
