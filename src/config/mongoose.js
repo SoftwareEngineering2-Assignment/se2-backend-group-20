@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Set default options for mongoose.
 const mongooseOptions = {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -9,6 +10,7 @@ const mongooseOptions = {
   keepAlive: true,
   keepAliveInitialDelay: 300000
 };
+// Connect to a mongoose server and connect to it.
 const mongodbUri = process.env.MONGODB_URI;
   
 module.exports = () => {

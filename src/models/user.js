@@ -8,6 +8,7 @@ mongoose.pluralize(null);
 
 const UserSchema = new mongoose.Schema(
   {
+    //checks if email is unique
     email: {
       index: true,
       type: String,
@@ -15,12 +16,14 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'User email is required'],
       lowercase: true
     },
+    //checks if username is unique
     username: {
       index: true,
       type: String,
       unique: 'A user already exists with that username!',
       required: [true, 'Username is required'],
     },
+    // Checks if passwordhas the minimum length.
     password: {
       type: String,
       required: [true, 'User password is required'],

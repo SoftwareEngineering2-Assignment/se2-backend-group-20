@@ -1,13 +1,16 @@
+// Get a jsonwebtoken and a secret.
 const jwt = require('jsonwebtoken');
 const {path, ifElse, isNil, startsWith, slice, identity, pipe} = require('ramda');
 
 const secret = process.env.SERVER_SECRET;
 
+// Set the exports module.
 module.exports = (req, res, next) => {
   /**
      * @name authorization
      * @description Middleware that checks a token's presence and validity in a request
     */
+   // Verify an access token.
   pipe(
     (r) =>
       path(['query', 'token'], r)

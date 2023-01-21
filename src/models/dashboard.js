@@ -7,33 +7,40 @@ mongoose.pluralize(null);
 
 const DashboardSchema = new mongoose.Schema(
   {
+    // Ensures that the dashboard name is required
     name: {
       index: true,
       type: String,
       required: [true, 'Dashboard name is required']
     },
+    // Layout for Arrays.
     layout: {
       type: Array,
       default: []
     },
+    // Returns a list of items.
     items: {
       type: Object,
       default: {}
     },
+    // Returns next id.
     nextId: {
       type: Number,
       min: 1,
       default: 1
     },
+    // Generates a password for the user.
     password: {
       type: String,
       select: false,
       default: null
     },
+    // A shared boolean value.
     shared: {
       type: Boolean,
       default: false
     },
+    // Creates views number.
     views: {
       type: Number,
       default: 0,
