@@ -240,7 +240,7 @@ router.post('/check-password-needed',
           dashboard
         });
       } 
-      // dashboard not myne
+      // dashboard not mine
       else if (!(foundDashboard.shared)) {
         return res.json({
           success: true,
