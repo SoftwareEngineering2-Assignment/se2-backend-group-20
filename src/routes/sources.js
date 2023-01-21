@@ -10,6 +10,7 @@ const Source = require('../models/source');
 router.get('/sources',
   authorization,
   async (req, res, next) => {
+    // Load sources from Mongoose.
     try {
       const {id} = req.decoded;
       const foundSources = await Source.find({owner: mongoose.Types.ObjectId(id)});
@@ -27,6 +28,7 @@ router.get('/sources',
         });
       });
 
+      // Returns a JSON - serializable json.
       return res.json({
         success: true,
         sources
@@ -39,6 +41,7 @@ router.get('/sources',
 router.post('/create-source', 
   authorization,
   async (req, res, next) => {
+    // Check if a source with that name already exists.
     try {
       const {name, type, url, login, passcode, vhost} = req.body;
       const {id} = req.decoded;
@@ -49,6 +52,7 @@ router.post('/create-source',
           message: 'A source with that name already exists.'
         });
       }
+      // Create a new source.
       await new Source({
         name,
         type,
@@ -59,6 +63,7 @@ router.post('/create-source',
         owner: mongoose.Types.ObjectId(id)
       }).save();
 
+      // Returns the response body as a JSON object
       return res.json({success: true});
     } catch (err) {
       return next(err.body);
@@ -68,6 +73,7 @@ router.post('/create-source',
 router.post('/change-source', 
   authorization,
   async (req, res, next) => {
+    // Checks if a source has been selected.
     try {
       const {id, name, type, url, login, passcode, vhost} = req.body;
       const foundSource = await Source.findOne({_id: mongoose.Types.ObjectId(id), owner: mongoose.Types.ObjectId(req.decoded.id)});
@@ -79,6 +85,7 @@ router.post('/change-source',
       }
       
       const sameNameSources = await Source.findOne({_id: {$ne: mongoose.Types.ObjectId(id)}, owner: mongoose.Types.ObjectId(req.decoded.id), name});
+      // Check if a source with the same name has been found.
       if (sameNameSources) {
         return res.json({
           status: 409,
@@ -86,6 +93,7 @@ router.post('/change-source',
         });
       }
 
+      // Saves the source to the database.
       foundSource.name = name;
       foundSource.type = type;
       foundSource.url = url;
@@ -94,12 +102,14 @@ router.post('/change-source',
       foundSource.vhost = vhost;
       await foundSource.save();
 
+      // Returns the response body as a JSON object
       return res.json({success: true});
     } catch (err) {
       return next(err.body);
     }
   }); 
 
+  // Delete a source.
 router.post('/delete-source', 
   authorization,
   async (req, res, next) => {
@@ -107,12 +117,14 @@ router.post('/delete-source',
       const {id} = req.body;
 
       const foundSource = await Source.findOneAndRemove({_id: mongoose.Types.ObjectId(id), owner: mongoose.Types.ObjectId(req.decoded.id)});
+      // The selected source has not been found.
       if (!foundSource) {
         return res.json({
           status: 409,
           message: 'The selected source has not been found.'
         });
       }
+      // Returns the response body as a JSON object
       return res.json({success: true});
     } catch (err) {
       return next(err.body);
@@ -121,6 +133,7 @@ router.post('/delete-source',
 
 router.post('/source',
   async (req, res, next) => {
+    // Attempts to find a source by name owner and user.
     try {
       const {name, owner, user} = req.body;
       const userId = (owner === 'self') ? user.id : owner;
@@ -132,6 +145,7 @@ router.post('/source',
         });
       }
 
+      // Constructs a json - rpc source object.
       const source = {};
       source.type = foundSource.type;
       source.url = foundSource.url;
@@ -139,6 +153,7 @@ router.post('/source',
       source.passcode = foundSource.passcode;
       source.vhost = foundSource.vhost;
     
+      // Returns a JSON - serializable json.
       return res.json({
         success: true,
         source
@@ -151,12 +166,14 @@ router.post('/source',
 router.post('/check-sources',
   authorization,
   async (req, res, next) => {
+    // Tries to decode the body of the request and decode it.
     try {
       const {sources} = req.body;
       const {id} = req.decoded;
 
       const newSources = [];
 
+      // Finds all sources in the mongoose.
       for (let i = 0; i < sources.length; i += 1) {
         // eslint-disable-next-line no-await-in-loop
         const result = await Source.findOne({name: sources[i], owner: mongoose.Types.ObjectId(id)});
@@ -165,6 +182,7 @@ router.post('/check-sources',
         }
       }
 
+      // Creates a new source and saves it.
       for (let i = 0; i < newSources.length; i += 1) {
         // eslint-disable-next-line no-await-in-loop
         await new Source({
@@ -178,6 +196,7 @@ router.post('/check-sources',
         }).save();
       } 
       
+      // Returns a JSON - serializable representation of the source.
       return res.json({
         success: true,
         newSources

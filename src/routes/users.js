@@ -1,3 +1,4 @@
+// Creates a new Express. Router.
 const express = require('express');
 const {validation, authorization} = require('../middlewares');
 const {helpers: {jwtSign}} = require('../utilities/authentication');
@@ -10,6 +11,7 @@ const User = require('../models/user');
 const Reset = require('../models/reset');
 
 router.post('/create',
+// Registers a new user.
   (req, res, next) => validation(req, res, next, 'register'),
   async (req, res, next) => {
     const {username, password, email} = req.body;
@@ -36,6 +38,7 @@ router.post('/authenticate',
   (req, res, next) => validation(req, res, next, 'authenticate'),
   async (req, res, next) => {
     const {username, password} = req.body;
+    // Attempt to authenticate a user.
     try {
       const user = await User.findOne({username}).select('+password');
       if (!user) {
@@ -50,6 +53,7 @@ router.post('/authenticate',
           message: 'Authentication Error: Password does not match!'
         });
       }
+      // Generate a JWT token for a user.
       return res.json({
         user: {
           username, 
@@ -65,6 +69,7 @@ router.post('/authenticate',
 
 router.post('/resetpassword',
   (req, res, next) => validation(req, res, next, 'request'),
+  // Gets a user by username.
   async (req, res, next) => {
     const {username} = req.body;
     try {
@@ -75,6 +80,7 @@ router.post('/resetpassword',
           message: 'Resource Error: User not found.'
         });
       }
+      // Removes a user from the database and saves it.
       const token = jwtSign({username});
       await Reset.findOneAndRemove({username});
       await new Reset({
@@ -82,6 +88,7 @@ router.post('/resetpassword',
         token,
       }).save();
 
+      // Forgot a password.
       const email = mail(token);
       send(user.email, 'Forgot Password', email);
       return res.json({
@@ -96,6 +103,7 @@ router.post('/resetpassword',
 router.post('/changepassword',
   (req, res, next) => validation(req, res, next, 'change'),
   authorization,
+  // Asynchronously retrieves a user.
   async (req, res, next) => {
     const {password} = req.body;
     const {username} = req.decoded;
@@ -107,6 +115,7 @@ router.post('/changepassword',
           message: 'Resource Error: User not found.'
         });
       }
+      // Reset token expires.
       const reset = await Reset.findOneAndRemove({username});
       if (!reset) {
         return res.json({
@@ -114,6 +123,7 @@ router.post('/changepassword',
           message: ' Resource Error: Reset token has expired.'
         });
       }
+      // Changes the user s password.
       user.password = password;
       await user.save();
       return res.json({
