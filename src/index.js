@@ -27,7 +27,7 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
-// Mongo configuration
+// Mongo start
 mongoose();
 
 // Routes
