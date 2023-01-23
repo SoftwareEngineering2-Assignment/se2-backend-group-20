@@ -11,6 +11,7 @@ const router = express.Router();
 const Dashboard = require('../models/dashboard');
 const Source = require('../models/source');
 
+// function that checks if the name we are using for a dashboard already exists and if so returns an error
 function dashFound(found) {
   if (found) {
     return res.json({
@@ -20,6 +21,7 @@ function dashFound(found) {
   }
 }
 
+// function that checks if the dashboard we are searching doesn't exist and if so returns an error
 function dashNotFound(found) {
   if (!found) {
     return res.json({
