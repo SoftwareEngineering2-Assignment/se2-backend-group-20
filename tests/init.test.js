@@ -9,12 +9,14 @@ const listen = require('test-listen');
 const app = require('../src/index');
 const {jwtSign} = require('../src/utilities/authentication/helpers');
 
+// Make sure the server is listening
 test.before(async (t) => {
   t.context.server = http.createServer(app);
   t.context.prefixUrl = await listen(t.context.server);
   t.context.got = got.extend({http2: true, throwHttpErrors: false, responseType: 'json', prefixUrl: t.context.prefixUrl});
 });
 
+// Always close the server
 test.after.always((t) => {
   t.context.server.close();
 });
