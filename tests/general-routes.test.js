@@ -25,12 +25,12 @@ test.after((t) => {
   Tests for general routes
 */
 
-// test('GET | /statistics | returns correct status code', async (t) => {
-//   const {statusCode, body} = await t.context.got('general/statistics');
-//   t.is(statusCode, 200);
-//   t.assert(body.success);
-//   t.is(body.sources, 0);
-// });
+test('GET | /statistics | returns correct status code', async (t) => {
+  const {statusCode, body} = await t.context.got('general/statistics');
+  t.is(statusCode, 200);
+  t.assert(body.success);
+  t.is(body.sources, 0);
+});
 
 test('GET | /test-url', async (t) => {
   const { statusCode } = await t.context.got('general/test-url');
