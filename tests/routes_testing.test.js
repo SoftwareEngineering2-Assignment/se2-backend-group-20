@@ -8,6 +8,7 @@ const http = require('node:http');
 const app = require('../src/index');
 const {jwtSign} = require('../src/utilities/authentication/helpers');
 const { authenticate } = require('../src/utilities/validation/schemas');
+const axios = require("axios");
 
 // before running the tests setup the test environment
 test.before(async (t) => {
