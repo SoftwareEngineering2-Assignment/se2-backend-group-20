@@ -87,7 +87,7 @@ test('GET | /dashboards', async (t) => {
 //   Tests for sources routes
 // */
 
-// get every available source
+// Get every available source
 test('GET | /sources', async (t) => {
   const token = jwtSign({ username: process.env.USERNAME, id: process.env.ID, email: process.env.EMAIL });
   const { statusCode, body } = await t.context.got(`sources/sources?token=${token}`);
