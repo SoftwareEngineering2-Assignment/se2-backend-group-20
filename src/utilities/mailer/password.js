@@ -4,7 +4,7 @@ const link = (token) => `${baseUrl}/reset-password?token=${token}`;
 
 /**
  * Creates and returns an email with a password reset token. The parameters given are the
- * platform's logo and the reset token needed for chaning the password.
+ * platform's logo and the reset token needed for changing the password.
  */
 
 module.exports = (token) => (`

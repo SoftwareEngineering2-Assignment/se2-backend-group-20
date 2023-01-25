@@ -1,3 +1,6 @@
+/**
+ * User schema configuration
+ */
 /* eslint-disable func-names */
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
@@ -6,6 +9,7 @@ const {constants: {min}} = require('../utilities/validation');
 
 mongoose.pluralize(null);
 
+// build the user model based on mongoose schema
 const UserSchema = new mongoose.Schema(
   {
     email: {

@@ -1,4 +1,7 @@
 /* eslint-disable no-console */
+/**
+ * Error handling
+ */
 const {pipe, has, ifElse, assoc, identity, allPass, propEq} = require('ramda');
 
 const withFormatMessageForProduction = ifElse(
@@ -7,7 +10,7 @@ const withFormatMessageForProduction = ifElse(
   identity
 );
 
-module.exports = (error, req, res, next) => 
+module.exports = (error, _, res) => 
   /**
      * @name error
      * @description Middleware that handles errors

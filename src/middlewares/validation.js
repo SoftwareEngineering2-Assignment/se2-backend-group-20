@@ -1,3 +1,6 @@
+/**
+ * Schema validation
+ */
 const {schemas: validationSchemas} = require('../utilities/validation');
 
 module.exports = async (req, res, next, schema) => {

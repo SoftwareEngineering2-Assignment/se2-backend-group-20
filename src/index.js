@@ -1,3 +1,8 @@
+/**
+ * The place where everything starts working
+ */
+
+// import and gather everything here
 const path = require('path');
 require('dotenv').config({path: path.join(__dirname, '../', '.env')});
 const express = require('express');
@@ -22,7 +27,7 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
-// Mongo configuration
+// Mongo start
 mongoose();
 
 // Routes
