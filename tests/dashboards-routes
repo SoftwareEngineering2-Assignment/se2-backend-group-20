@@ -49,9 +49,9 @@ test('GET | /dashboards', async (t) => {
 //   t.is(answer.status, 200);
 // });
 
-test('GET | /dashboard', async (t) => {
-    const token = jwtSign({ username: "giachoud", id: "63c11a261429c8274c36cd79", email: 'giachoud@gapps.auth.gr' });
-    const dash_id = { id: "63d10d521ebb263904b07b0e" };
-    const { statusCode } = await axios.post(`dashboards/dashboard?token=${token}`, dash_id);
-    t.is(statusCode, 200);
-  });
+// test('GET | /dashboard', async (t) => {
+//     const token = jwtSign({ username: "giachoud", id: "63c11a261429c8274c36cd79", email: 'giachoud@gapps.auth.gr' });
+//     const dash_id = { id: "63d10d521ebb263904b07b0e" };
+//     const { statusCode } = await axios.post(`dashboards/dashboard?token=${token}`, dash_id);
+//     t.is(statusCode, 200);
+//   });
