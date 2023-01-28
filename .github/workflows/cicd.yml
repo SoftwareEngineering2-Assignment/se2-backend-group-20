@@ -1,0 +1,30 @@
+name: ci
+on: push
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm test
+  cd:
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref == 'refs/heads/xhulio-branch'
+    steps:
+      - uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/se2/20/se2-backend
+            git reset --hard origin/main
+            git pull https://${{ secrets.C_CLONE_TOKEN }}@github.com/SoftwareEngineering2-Assignment/se2-backend-group-20 xhulio-branch
+            bash -ci 'npm install'
+            bash -ci 'pm2 restart se2-backend-20'
+

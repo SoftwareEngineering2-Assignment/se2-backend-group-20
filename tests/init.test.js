@@ -1,4 +1,7 @@
 /* eslint-disable import/no-unresolved */
+/* This file contains all the test that are
+   will run for backend in different senarios
+*/
 require('dotenv').config();
 
 const http = require('node:http');
