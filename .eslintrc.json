@@ -14,6 +14,7 @@
     "ecmaVersion": 2018
   },
   "rules": {
+    "linebreak-style": "off",
     "no-throw-literal": "off",
     "block-spacing": "warn",
     "eol-last": "warn",
