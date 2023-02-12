@@ -16,6 +16,14 @@ test.before(async (t) => {
   t.context.got = got.extend({http2: true, throwHttpErrors: false, responseType: 'json', prefixUrl: t.context.prefixUrl});
 });
 
+// Finally delete the dashboard
+test('POST | /delete-dashboard', async (t) => {
+  const token = jwtSign({ username: process.env.USERNAME, id: process.env.ID, email: process.env.EMAIL });
+  const dash_id = { id: "63d10d521ebb263904b07b0e" }
+  const answer = await axios.post(`http://localhost:3000/dashboards/delete-dashboard?token=${token}`, dash_id);
+  t.is(answer.status, 200);
+});
+
 // Closes the test server.
 test.after.always((t) => {
   t.context.server.close();
