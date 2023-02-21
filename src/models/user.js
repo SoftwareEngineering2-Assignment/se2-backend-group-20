@@ -6,6 +6,9 @@ const {constants: {min}} = require('../utilities/validation');
 
 mongoose.pluralize(null);
 
+/*
+Schema for user
+*/
 const UserSchema = new mongoose.Schema(
   {
     email: {

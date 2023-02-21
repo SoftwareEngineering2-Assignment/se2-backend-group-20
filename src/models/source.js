@@ -4,6 +4,10 @@ const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
 mongoose.pluralize(null);
 
+/*
+Schema for source:
+name, type, url, login, passcode, vhost, owner, date of creation
+*/
 const SourceSchema = new mongoose.Schema(
   {
     name: {
