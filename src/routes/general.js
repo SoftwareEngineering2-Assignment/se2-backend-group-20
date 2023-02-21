@@ -13,7 +13,7 @@ const Source = require('../models/source');
 Get the statistisc provided by Codin
 */
 router.get('/statistics',
-  async (req, res, next) => {
+  async (res, next) => {
     /*
     Count users, documents and dashboards that have been created
     */

@@ -6,6 +6,6 @@ const router = express.Router();
 const file = path.join(__dirname, '../../index.html');
 router.use(express.static(file));
 
-router.get('/', (req, res) => res.sendFile(file));
+router.get('/', (res) => res.sendFile(file));
 
 module.exports = router;
