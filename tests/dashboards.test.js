@@ -13,7 +13,7 @@ const {mongoose} = require('../src/config');
 test('Create dashboard without name',async t => {
     mongoose();
     const dashboard =  await t.throwsAsync(Dashboard.create({}));
-    t.is(dashboard.message,'You need to provide a name for the dashboard')
+    t.is(dashboard.message,'dashboards validation failed: name: Dashboard name is required')
     Dashboard.deleteOne({});
 });
 
