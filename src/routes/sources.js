@@ -7,9 +7,13 @@ const router = express.Router();
 
 const Source = require('../models/source');
 
+/*
+GET /sources route
+*/
 router.get('/sources',
   authorization,
   async (req, res, next) => {
+    // Find sources base on id
     try {
       const {id} = req.decoded;
       const foundSources = await Source.find({owner: mongoose.Types.ObjectId(id)});
@@ -36,19 +40,29 @@ router.get('/sources',
     }
   });
 
+/*
+POST /create-source
+Source creation
+*/
 router.post('/create-source', 
   authorization,
   async (req, res, next) => {
+    
+    // Gathering inforamtion from body 
     try {
       const {name, type, url, login, passcode, vhost} = req.body;
       const {id} = req.decoded;
       const foundSource = await Source.findOne({owner: mongoose.Types.ObjectId(id), name});
+      
+      // Already existing source
       if (foundSource) {
         return res.json({
           status: 409,
           message: 'A source with that name already exists.'
         });
       }
+
+      // Create the new source if there is not already another source with the same id
       await new Source({
         name,
         type,
@@ -65,12 +79,20 @@ router.post('/create-source',
     }
   }); 
 
+/*
+POST /change-source
+change source route
+*/
 router.post('/change-source', 
   authorization,
   async (req, res, next) => {
+    
+    // Gathering information from body
     try {
       const {id, name, type, url, login, passcode, vhost} = req.body;
       const foundSource = await Source.findOne({_id: mongoose.Types.ObjectId(id), owner: mongoose.Types.ObjectId(req.decoded.id)});
+      
+      // Check if the given source already exists
       if (!foundSource) {
         return res.json({
           status: 409,
@@ -79,6 +101,8 @@ router.post('/change-source',
       }
       
       const sameNameSources = await Source.findOne({_id: {$ne: mongoose.Types.ObjectId(id)}, owner: mongoose.Types.ObjectId(req.decoded.id), name});
+      
+      // Check if there is a source with the same name
       if (sameNameSources) {
         return res.json({
           status: 409,
@@ -86,6 +110,7 @@ router.post('/change-source',
         });
       }
 
+      // Changing the information of the selected source
       foundSource.name = name;
       foundSource.type = type;
       foundSource.url = url;
@@ -100,13 +125,21 @@ router.post('/change-source',
     }
   }); 
 
+/*
+POST /delete-source
+Route to delete a source
+*/
 router.post('/delete-source', 
   authorization,
   async (req, res, next) => {
+    
+    // Gathering information from body
     try {
       const {id} = req.body;
 
       const foundSource = await Source.findOneAndRemove({_id: mongoose.Types.ObjectId(id), owner: mongoose.Types.ObjectId(req.decoded.id)});
+      
+      // Check if there is a source with the corresponding id
       if (!foundSource) {
         return res.json({
           status: 409,
@@ -119,12 +152,19 @@ router.post('/delete-source',
     }
   }); 
 
+/*
+POST /source
+*/
 router.post('/source',
   async (req, res, next) => {
+    
+    // Gathering information from body
     try {
       const {name, owner, user} = req.body;
       const userId = (owner === 'self') ? user.id : owner;
       const foundSource = await Source.findOne({name, owner: mongoose.Types.ObjectId(userId)});
+      
+      // Check if the source exists
       if (!foundSource) {
         return res.json({
           status: 409,
@@ -132,6 +172,7 @@ router.post('/source',
         });
       }
 
+      // Changing the values accordingly
       const source = {};
       source.type = foundSource.type;
       source.url = foundSource.url;
@@ -148,6 +189,10 @@ router.post('/source',
     }
   });
 
+
+/*
+POST /check-sources
+*/
 router.post('/check-sources',
   authorization,
   async (req, res, next) => {

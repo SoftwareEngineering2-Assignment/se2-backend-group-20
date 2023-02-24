@@ -8,8 +8,15 @@ const User = require('../models/user');
 const Dashboard = require('../models/dashboard');
 const Source = require('../models/source');
 
+
+/*
+Get the statistisc provided by Codin
+*/
 router.get('/statistics',
-  async (req, res, next) => {
+  async (res, next) => {
+    /*
+    Count users, documents and dashboards that have been created
+    */
     try {
       const users = await User.countDocuments();
       const dashboards = await Dashboard.countDocuments();
@@ -28,6 +35,7 @@ router.get('/statistics',
         totalViews = views[0].views;
       }
 
+      // Return a json with the statistics
       return res.json({
         success: true,
         users,
@@ -40,8 +48,14 @@ router.get('/statistics',
     }
   });
 
+
+/*
+Test the connection based on a given url
+*/
 router.get('/test-url',
   async (req, res) => {
+    // Check the url and return status code 200 if correct
+    // else return status code 500 if incorrect
     try {
       const {url} = req.query;
       const {statusCode} = await got(url);
@@ -57,13 +71,26 @@ router.get('/test-url',
     }
   });
 
+
+/*
+Check the http request type
+*/
 router.get('/test-url-request',
   async (req, res) => {
+    // Gathering the info
     try {
       const {url, type, headers, body: requestBody, params} = req.query;
 
       let statusCode;
       let body;
+      
+      /*
+      A switch control flow for each http request:
+      GET
+      POST
+      PUT
+      Return status code = 500 if none of the above were provided
+      */
       switch (type) {
         case 'GET':
           ({statusCode, body} = await got(url, {
@@ -88,6 +115,7 @@ router.get('/test-url-request',
           body = 'Something went wrong';
       }
       
+      // Success or Failure
       return res.json({
         status: statusCode,
         response: body,
@@ -100,4 +128,5 @@ router.get('/test-url-request',
     }
   });
 
+  // Export general route
 module.exports = router;

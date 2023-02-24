@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Setting up mongoose options for mongodb
 const mongooseOptions = {
   useNewUrlParser: true,
   useCreateIndex: true,

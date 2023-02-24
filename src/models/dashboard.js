@@ -5,6 +5,18 @@ const {passwordDigest, comparePassword} = require('../utilities/authentication/h
 
 mongoose.pluralize(null);
 
+/*
+Schema of the Dashboard: 
+name
+layout
+items
+nextId
+password
+shared status
+views
+owner
+date of creation
+*/
 const DashboardSchema = new mongoose.Schema(
   {
     name: {
